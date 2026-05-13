@@ -111,7 +111,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
       children: [
         // â”€â”€ ADD EXPENSE FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         Card(
-         color: Colors.indigo.shade900,
+         color: Colors.purple.shade100,
           margin: const EdgeInsets.all(12),
           child: Padding(
             padding:const EdgeInsets.all(12),
@@ -124,20 +124,21 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     labelText: 'Expense title',
                     labelStyle: TextStyle(
                       color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                     filled:true,
                     fillColor: Colors.white,
 
                     enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.amberAccent,
+                      color: Colors.deepPurple,
                       width:2,
                   ),
                 ),
 
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.amberAccent,
+                      color: Colors.deepPurple,
                       width:3,
                   ),
                   ),
@@ -156,20 +157,21 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                           labelText: 'Amount',
                           labelStyle: TextStyle(
                             color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
                      filled: true,
                      fillColor: Colors.white,
 
                      enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                      color: Colors.amberAccent,
+                      color: Colors.deepPurple,
                       width:2,
                       ),
                       ),
 
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                        color: Colors.amberAccent,
+                        color: Colors.deepPurple,
                         width:3,
                         ),
                         ),
@@ -186,20 +188,21 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                           labelText: 'Category',
                           labelStyle: TextStyle(
                             color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
     filled: true,
     fillColor: Colors.white,
 
     enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
-    color: Colors.amberAccent,
+    color: Colors.deepPurple,
     width:2,
     ),
     ),
 
     focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(
-    color: Colors.amberAccent,
+    color: Colors.deepPurple,
     width:3,
     ),
     ),
@@ -229,7 +232,8 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     Text(
                       'Selected Date: ${DateFormat.yMd().format(_selectedDate)}',
                       style: TextStyle(
-                        color:Colors.white,
+                        color:Colors.black,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Spacer(),
@@ -237,12 +241,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                       onPressed: _presentDatePicker,
                       icon: const Icon(
                           Icons.calendar_month,
-                         color:Colors.white,
+                         color:Colors.black,
+                        fontWeight: FontWeight.bold,
                       ),
                       label: const Text(
                           'Choose Date',
                           style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
+                            fontWeight: FontWeight.bold,
                       ),
                       ),
 
@@ -256,7 +262,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     style: FilledButton.styleFrom(
                       backgroundColor: Colors.white,
                       side: const BorderSide(
-                        color: Colors.yellow,
+                        color: Colors.deepPurple,
                         width: 2,
                       ),
                     ),
@@ -310,17 +316,34 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
             ],
           ),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8),
 
         // â”€â”€ EXPENSE LIST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         Expanded(
           child: displayedExpenses.isEmpty
               ? Center(
-            child: Text(
+            child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+    Image.asset(
+    'assets/images/piggy_bank.png',
+    height: 120,
+    width: 120,
+    ),
+    const SizedBox(height: 16),
+    Text(
               _filterDate == null
                   ? 'No expenses yet. Add your first one above.'
                   : 'No expenses found for this date.',
+    textAlign: TextAlign.center,
+    style: const TextStyle(
+    fontSize: 16,
+    color: Colors.grey,
+    fontWeight: FontWeight.w500,
             ),
+            ),
+            ],
+          ),
           )
               : ListView.builder(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),

@@ -47,25 +47,65 @@ class _TodoScreenState extends State<TodoScreen> {
       children: [
         // â”€â”€ ADD TASK FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         Card(
+          color: Colors.purple.shade100,
           margin: const EdgeInsets.all(12),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
-              children: [
+            children: [
                 Expanded(
                   child: TextField(
-                    controller: _taskController,
-                    decoration: const InputDecoration(
-                      labelText: 'New task',
-                      border: OutlineInputBorder(),
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
+                    controller: _taskController,
+                    decoration: InputDecoration(
+                      labelText: 'New task',
+                      labelStyle: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      filled:true,
+                      fillColor:Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.deepPurple,
+                          width:2,
+                        ),
+                      ),
+
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.deepPurple,
+                          width:3,
+                        ),
+                      ),
+                    ),
+
                     onSubmitted: (_) => _submitTodo(),
                   ),
                 ),
                 const SizedBox(width: 10),
                 FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Colors.purple.shade100,
+
+                    side: const BorderSide(
+                    color: Colors.deepPurple,
+                    width:2,
+    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                   onPressed: _submitTodo,
-                  child: const Text('Add'),
+                  child: const Text(
+                      'Add',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    )
+                  ),
                 ),
               ],
             ),
@@ -91,7 +131,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.only(right: 20),
                   color: Colors.red,
-                  child: const Icon(Icons.delete, color: Colors.white),
+                  child:  Icon(Icons.delete, color: Colors.white),
                 ),
                 child: TodoTile(
                   todo: todo,
