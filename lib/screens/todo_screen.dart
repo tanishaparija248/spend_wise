@@ -115,8 +115,23 @@ class _TodoScreenState extends State<TodoScreen> {
         // â”€â”€ TODO LIST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         Expanded(
           child: widget.todos.isEmpty
-              ? const Center(
-            child: Text('No tasks yet. Add one to get started.'),
+              ?  Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/note.png',
+                  height: 700,
+                  width: 600,
+                ),
+
+                const SizedBox(height: 16),
+
+                Text(
+                  'No tasks yet. Add one to get started.',
+                ),
+              ],
+            ),
           )
               : ListView.builder(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),

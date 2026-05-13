@@ -319,56 +319,57 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         SizedBox(height: 8),
 
         // â”€â”€ EXPENSE LIST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-        Expanded(
-          child: displayedExpenses.isEmpty
-              ? Center(
-            child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-    Image.asset(
-    'assets/images/piggy_bank.png',
-    height: 120,
-    width: 120,
-    ),
-    const SizedBox(height: 16),
-    Text(
-              _filterDate == null
-                  ? 'No expenses yet. Add your first one above.'
-                  : 'No expenses found for this date.',
-    textAlign: TextAlign.center,
-    style: const TextStyle(
-    fontSize: 16,
-    color: Colors.grey,
-    fontWeight: FontWeight.w500,
-            ),
-            ),
-            ],
-          ),
-          )
-              : ListView.builder(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-            itemCount: displayedExpenses.length,
-            itemBuilder: (BuildContext context, int index) {
-              final Expense expense = displayedExpenses[index];
-              return Dismissible(
-                key: ValueKey<Expense>(expense),
-                direction: DismissDirection.endToStart,
-                onDismissed: (_) {
-                  final int originalIndex =
-                  widget.expenses.indexOf(expense);
-                  widget.onDeleteExpense(originalIndex);
-                },
-                background: Container(
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.only(right: 20),
-                  child: const Icon(Icons.delete, color: Colors.white),
-                ),
-                child: ExpenseCard(expense: expense),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
+Expanded(
+child: Container(
+decoration: const BoxDecoration(
+image: DecorationImage(
+image: AssetImage('assets/images/piggy_bank.png'),
+fit: BoxFit.contain,
+),
+),
+
+child: displayedExpenses.isEmpty
+? Center(
+child: Text(
+_filterDate == null
+? 'No expenses yet. Add your first one above.'
+: 'No expenses found for this date.',
+textAlign: TextAlign.center,
+style: const TextStyle(
+fontSize: 16,
+color: Colors.grey,
+fontWeight: FontWeight.w500,
+),
+),
+)
+: ListView.builder(
+padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+itemCount: displayedExpenses.length,
+itemBuilder: (BuildContext context, int index) {
+final Expense expense = displayedExpenses[index];
+
+return Dismissible(
+key: ValueKey<Expense>(expense),
+direction: DismissDirection.endToStart,
+onDismissed: (_) {
+final int originalIndex =
+widget.expenses.indexOf(expense);
+
+widget.onDeleteExpense(originalIndex);
+},
+background: Container(
+alignment: Alignment.centerRight,
+padding: const EdgeInsets.only(right: 20),
+child: const Icon(
+Icons.delete,
+color: Colors.white,
+),
+),
+child: ExpenseCard(expense: expense),
+);
+},
+),
+),
+),
+],
+);
