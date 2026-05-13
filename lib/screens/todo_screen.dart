@@ -32,9 +32,9 @@ class _TodoScreenState extends State<TodoScreen> {
   void _submitTodo() {
     final String taskTitle = _taskController.text.trim();
     if (taskTitle.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Task cannot be empty.')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Task cannot be empty.')),
+      );
       return;
     }
     widget.onAddTodo(taskTitle);
@@ -45,19 +45,17 @@ class _TodoScreenState extends State<TodoScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // â”€â”€ ADD TASK FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ── ADD TASK FORM ──────────────────────────────────────────
         Card(
           color: Colors.purple.shade100,
           margin: const EdgeInsets.all(12),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
-            children: [
+              children: [
                 Expanded(
                   child: TextField(
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
+                    style: const TextStyle(color: Colors.black),
                     controller: _taskController,
                     decoration: InputDecoration(
                       labelText: 'New task',
@@ -65,23 +63,15 @@ class _TodoScreenState extends State<TodoScreen> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
-                      filled:true,
-                      fillColor:Colors.white,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.deepPurple,
-                          width:2,
-                        ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple, width: 2),
                       ),
-
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.deepPurple,
-                          width:3,
-                        ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple, width: 3),
                       ),
                     ),
-
                     onSubmitted: (_) => _submitTodo(),
                   ),
                 ),
@@ -89,22 +79,18 @@ class _TodoScreenState extends State<TodoScreen> {
                 FilledButton(
                   style: FilledButton.styleFrom(
                     backgroundColor: Colors.purple.shade100,
-
-                    side: const BorderSide(
-                    color: Colors.deepPurple,
-                    width:2,
-    ),
+                    side: const BorderSide(color: Colors.deepPurple, width: 2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   onPressed: _submitTodo,
                   child: const Text(
-                      'Add',
+                    'Add',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                    )
+                    ),
                   ),
                 ),
               ],
@@ -112,48 +98,41 @@ class _TodoScreenState extends State<TodoScreen> {
           ),
         ),
 
-        // â”€â”€ TODO LIST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ── TODO LIST ──────────────────────────────────────────────
         Expanded(
-          child: widget.todos.isEmpty
-              ?  Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/note.png',
-                  height: 700,
-                  width: 600,
-                ),
-
-                const SizedBox(height: 16),
-
-                Text(
-                  'No tasks yet. Add one to get started.',
-                ),
-              ],
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/notes.png'),
+                fit: BoxFit.contain,
+              ),
             ),
-          )
-              : ListView.builder(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-            itemCount: widget.todos.length,
-            itemBuilder: (BuildContext context, int index) {
-              final Todo todo = widget.todos[index];
-              return Dismissible(
-                key: ValueKey<Todo>(todo),
-                direction: DismissDirection.endToStart,
-                onDismissed: (_) => widget.onDeleteTodo(index),
-                background: Container(
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.only(right: 20),
-                  color: Colors.red,
-                  child:  Icon(Icons.delete, color: Colors.white),
-                ),
-                child: TodoTile(
-                  todo: todo,
-                  onChanged: (_) => widget.onToggleTodo(index),
-                ),
-              );
-            },
+            child: widget.todos.isEmpty
+                ? const Center(
+              child: Text('No tasks yet. Add one to get started.'),
+            )
+                : ListView.builder(
+              padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+              itemCount: widget.todos.length,
+              itemBuilder: (BuildContext context, int index) {
+                final Todo todo = widget.todos[index];
+                return Dismissible(
+                  key: ValueKey<Todo>(todo),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (_) => widget.onDeleteTodo(index),
+                  background: Container(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20),
+                    color: Colors.red,
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                  child: TodoTile(
+                    todo: todo,
+                    onChanged: (_) => widget.onToggleTodo(index),
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ],

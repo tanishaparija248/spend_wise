@@ -109,104 +109,75 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 
     return Column(
       children: [
-        // â”€â”€ ADD EXPENSE FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ── ADD EXPENSE FORM ──────────────────────────────────────────
         Card(
-         color: Colors.purple.shade100,
+          color: Colors.purple.shade100,
           margin: const EdgeInsets.all(12),
           child: Padding(
-            padding:const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Column(
               children: [
                 TextField(
                   controller: _titleController,
-
                   decoration: InputDecoration(
                     labelText: 'Expense title',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
-                    filled:true,
+                    filled: true,
                     fillColor: Colors.white,
-
-                    enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.deepPurple,
-                      width:2,
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.deepPurple, width: 3),
+                    ),
                   ),
                 ),
-
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.deepPurple,
-                      width:3,
-                  ),
-                  ),
-                ),
-          ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
                     Expanded(
                       child: TextField(
                         controller: _amountController,
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true,
-                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         decoration: InputDecoration(
                           labelText: 'Amount',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
-                     filled: true,
-                     fillColor: Colors.white,
-
-                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                      color: Colors.deepPurple,
-                      width:2,
+                          filled: true,
+                          fillColor: Colors.white,
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple, width: 3),
+                          ),
+                        ),
                       ),
-                      ),
-
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                        color: Colors.deepPurple,
-                        width:3,
-                        ),
-                        ),
-                        ),
-                        ),
                     ),
                     const SizedBox(width: 10),
-
                     Expanded(
                       child: DropdownButtonFormField<ExpenseCategory>(
                         value: _selectedCategory,
-
                         decoration: InputDecoration(
                           labelText: 'Category',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
-    filled: true,
-    fillColor: Colors.white,
-
-    enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(
-    color: Colors.deepPurple,
-    width:2,
-    ),
-    ),
-
-    focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(
-    color: Colors.deepPurple,
-    width:3,
-    ),
-    ),
-    ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                          ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple, width: 3),
+                          ),
+                        ),
                         items: ExpenseCategory.values
                             .map(
                               (ExpenseCategory category) =>
@@ -231,8 +202,8 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   children: [
                     Text(
                       'Selected Date: ${DateFormat.yMd().format(_selectedDate)}',
-                      style: TextStyle(
-                        color:Colors.black,
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -240,18 +211,16 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     TextButton.icon(
                       onPressed: _presentDatePicker,
                       icon: const Icon(
-                          Icons.calendar_month,
-                         color:Colors.black,
-                        fontWeight: FontWeight.bold,
+                        Icons.calendar_month,
+                        color: Colors.black,
                       ),
                       label: const Text(
-                          'Choose Date',
-                          style: TextStyle(
+                        'Choose Date',
+                        style: TextStyle(
                           color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      ),
-
                     ),
                   ],
                 ),
@@ -261,25 +230,21 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   child: FilledButton(
                     style: FilledButton.styleFrom(
                       backgroundColor: Colors.white,
-                      side: const BorderSide(
-                        color: Colors.deepPurple,
-                        width: 2,
-                      ),
+                      side: const BorderSide(color: Colors.deepPurple, width: 2),
                     ),
                     onPressed: _submitExpense,
                     child: const Text(
-                        'Add expense' ,
-                            style: TextStyle(
-                        color:Colors.black
+                      'Add expense',
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 ),
+              ],
+            ),
           ),
-    ],
         ),
-    ),
-    ),
-        // â”€â”€ TOTAL + FILTER ROW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+        // ── TOTAL + FILTER ROW ───────────────────────────────────────
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -316,60 +281,60 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
             ],
           ),
         ),
-        SizedBox(height: 8),
 
-        // â”€â”€ EXPENSE LIST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-Expanded(
-child: Container(
-decoration: const BoxDecoration(
-image: DecorationImage(
-image: AssetImage('assets/images/piggy_bank.png'),
-fit: BoxFit.contain,
-),
-),
+        const SizedBox(height: 8),
 
-child: displayedExpenses.isEmpty
-? Center(
-child: Text(
-_filterDate == null
-? 'No expenses yet. Add your first one above.'
-: 'No expenses found for this date.',
-textAlign: TextAlign.center,
-style: const TextStyle(
-fontSize: 16,
-color: Colors.grey,
-fontWeight: FontWeight.w500,
-),
-),
-)
-: ListView.builder(
-padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-itemCount: displayedExpenses.length,
-itemBuilder: (BuildContext context, int index) {
-final Expense expense = displayedExpenses[index];
-
-return Dismissible(
-key: ValueKey<Expense>(expense),
-direction: DismissDirection.endToStart,
-onDismissed: (_) {
-final int originalIndex =
-widget.expenses.indexOf(expense);
-
-widget.onDeleteExpense(originalIndex);
-},
-background: Container(
-alignment: Alignment.centerRight,
-padding: const EdgeInsets.only(right: 20),
-child: const Icon(
-Icons.delete,
-color: Colors.white,
-),
-),
-child: ExpenseCard(expense: expense),
-);
-},
-),
-),
-),
-],
-);
+        // ── EXPENSE LIST ─────────────────────────────────────────────
+        Expanded(
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/piggy_bank.png'),
+                fit: BoxFit.contain,
+              ),
+            ),
+            child: displayedExpenses.isEmpty
+                ? Center(
+              child: Text(
+                _filterDate == null
+                    ? 'No expenses yet. Add your first one above.'
+                    : 'No expenses found for this date.',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            )
+                : ListView.builder(
+              padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+              itemCount: displayedExpenses.length,
+              itemBuilder: (BuildContext context, int index) {
+                final Expense expense = displayedExpenses[index];
+                return Dismissible(
+                  key: ValueKey<Expense>(expense),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (_) {
+                    final int originalIndex =
+                    widget.expenses.indexOf(expense);
+                    widget.onDeleteExpense(originalIndex);
+                  },
+                  background: Container(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20),
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: ExpenseCard(expense: expense),
+                );
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

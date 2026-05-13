@@ -4,73 +4,89 @@ import 'package:spend_wise/models/todo.dart';
 import 'package:spend_wise/widgets/dashboard_metric_card.dart';
 
 class DashboardScreen extends StatelessWidget {
-const DashboardScreen({
-super.key,
-required this.expenses,
-required this.todos,
-});
+  const DashboardScreen({
+    super.key,
+    required this.expenses,
+    required this.todos,
+  });
 
-final List<Expense> expenses;
-final List<Todo> todos;
+  final List<Expense> expenses;
+  final List<Todo> todos;
 
-@override
-Widget build(BuildContext context) {
-final DateTime now = DateTime.now();
+  @override
+  Widget build(BuildContext context) {
+    final DateTime now = DateTime.now();
 
-final double totalSpent = expenses.fold<double>(
-0,
-(double sum, Expense item) => sum + item.amount,
-);
+    final double totalSpent = expenses.fold<double>(
+      0,
+          (double sum, Expense item) => sum + item.amount,
+    );
 
-final double todaySpent = expenses
-.where(
-(Expense item) =>
-item.date.year == now.year &&
-item.date.month == now.month &&
-item.date.day == now.day,
-)
-.fold<double>(0, (double sum, Expense item) => sum + item.amount);
+    final double todaySpent = expenses
+        .where(
+          (Expense item) =>
+      item.date.year == now.year &&
+          item.date.month == now.month &&
+          item.date.day == now.day,
+    )
+        .fold<double>(0, (double sum, Expense item) => sum + item.amount);
 
-final int doneCount = todos.where((Todo item) => item.isDone).length;
+    final int doneCount = todos.where((Todo item) => item.isDone).length;
 
-final int todayTasks = todos
-.where(
-(Todo item) =>
-item.createdAt.year == now.year &&
-item.createdAt.month == now.month &&
-item.createdAt.day == now.day,
-)
-.length;
-// Continued from the build method in DashboardScreen
-  return Scaffold(
-    body: ListView(
-      children: [
-        DashboardMetricCard(
-          label: "Total spending",
-          value: '\$${totalSpent.toStringAsFixed(2)}',
-          icon: Icons.account_balance_wallet_outlined,
-          color: Colors.teal,
-        ),
-        DashboardMetricCard(
-          label: "Today's spending",
-          value: '\$${todaySpent.toStringAsFixed(2)}',
-          icon: Icons.today_outlined,
-          color: Colors.blue,
-        ),
-        DashboardMetricCard(
-          label: 'Tasks done',
-          value: '$doneCount / ${todos.length}',
-          icon: Icons.check_circle_outline,
-          color: Colors.green,
-        ),
-        DashboardMetricCard(
-          label: 'Tasks added today',
-          value: '$todayTasks',
-          icon: Icons.playlist_add_check_outlined,
-          color: Colors.orange,
-        ),
-      ],
-    ),
-  );
-}
+    final int todayTasks = todos
+        .where(
+          (Todo item) =>
+      item.createdAt.year == now.year &&
+          item.createdAt.month == now.month &&
+          item.createdAt.day == now.day,
+    )
+        .length;
+
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                DashboardMetricCard(
+                  label: "Total spending",
+                  value: '\$${totalSpent.toStringAsFixed(2)}',
+                  icon: Icons.account_balance_wallet_outlined,
+                  color: Colors.teal,
+                ),
+                DashboardMetricCard(
+                  label: "Today's spending",
+                  value: '\$${todaySpent.toStringAsFixed(2)}',
+                  icon: Icons.today_outlined,
+                  color: Colors.blue,
+                ),
+                DashboardMetricCard(
+                  label: 'Tasks done',
+                  value: '$doneCount / ${todos.length}',
+                  icon: Icons.check_circle_outline,
+                  color: Colors.green,
+                ),
+                DashboardMetricCard(
+                  label: 'Tasks added today',
+                  value: '$todayTasks',
+                  icon: Icons.playlist_add_check_outlined,
+                  color: Colors.orange,
+                ),
+              ],
+            ),
+          ),
+
+          // ── DECORATIVE NOTEBOOK IMAGE ─────────────────────────────
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Image.asset(
+              'assets/images/dash.png',
+              height: 350,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
